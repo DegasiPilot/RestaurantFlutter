@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "875578923612",
+    "project_id": "restarauntnigmatov",
+    "storage_bucket": "restarauntnigmatov.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875578923612:android:eab4d056f1a1f074ce2499",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANtkoPiT_tKcqzCVWPsAVnR2_0ntZr2mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
