@@ -10,56 +10,46 @@ class ProfilePage extends StatefulWidget {
 class ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: ListView(
-          children: const [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(Icons.person),
-                Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Никнейм',
-                      enabled: false,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Email',
-                      enabled: false,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Телефон',
-                      enabled: false,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Пароль',
-                      enabled: false,
-                    ),
-                  ),
-                ),
-              ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Spacer(flex: 3,),
+            Icon(Icons.person),
+            Spacer(),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Никнейм',
+                enabled: false,
+              ),
             ),
+            Spacer(),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Email',
+                enabled: false,
+              ),
+            ),
+            Spacer(),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Телефон',
+                enabled: false,
+              ),
+            ),
+            Spacer(),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Пароль',
+                enabled: false,
+              ),
+            ),
+            Spacer(flex: 3,),
           ],
         ),
       ),
