@@ -19,7 +19,7 @@ class _AuthpageState extends State<Authpage> {
         child:  Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('images/logo.jpg',width: MediaQuery.of(context).size.width*0.5, height: MediaQuery.of(context).size.height*0.3,),
+            Image.asset('images/logo.png',width: MediaQuery.of(context).size.width*0.5, height: MediaQuery.of(context).size.height*0.3,),
             SizedBox(
               width: MediaQuery.of(context).size.width*0.9,
               child: TextField(

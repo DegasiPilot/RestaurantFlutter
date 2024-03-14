@@ -28,7 +28,7 @@ class OrderPageState extends State<OrderPage> {
                   Text('200 грамм'),
                 ],
               ),
-              leading: Image.asset('images/logo.jpg'),
+              leading: Image.asset('images/logo.png'),
               trailing: SizedBox(
                 width: 150,
                 height: 200,

@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
             else if(index == 1){
               title = "Заказы";
             }
-            else if(index == 1){
+            else if(index == 2){
               title = "Профиль";
             }
           });

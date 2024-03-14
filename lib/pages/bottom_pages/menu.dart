@@ -22,7 +22,7 @@ class MenuPage extends StatelessWidget {
                     Text('200 грамм'),
                   ],
                 ),
-              leading: Image.asset('images/logo.jpg'),
+              leading: Image.asset('images/logo.png'),
               trailing: ElevatedButton(
                 onPressed: () { },
                 child: const Icon(Icons.add_shopping_cart)
