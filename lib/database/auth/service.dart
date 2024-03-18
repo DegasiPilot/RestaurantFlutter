@@ -8,9 +8,13 @@ class AuthService{
   try{
     UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
 
-    User user = userCredential.user!;
-
-    return UserModel.fromFirebase(user);
+    User? user = userCredential.user;
+    if(user != null){
+      return UserModel.fromFirebase(user);
+    }
+    else{
+      return null;
+    }
   }
   catch(e){
     return null;

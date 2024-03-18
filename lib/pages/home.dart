@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/database/auth/service.dart';
 import 'package:flutter_application_1/pages/bottom_pages/menu.dart';
 import 'package:flutter_application_1/pages/bottom_pages/order.dart';
 import 'package:flutter_application_1/pages/bottom_pages/profile.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,8 +18,14 @@ class _HomePageState extends State<HomePage> {
   final pages = [const MenuPage(), const OrderPage(), const ProfilePage()];
   @override
   Widget build(BuildContext context) {
+    AuthService authService = AuthService();
     return Scaffold(
       appBar: AppBar(
+        actions: [IconButton(onPressed: () async {
+          await authService.LogOut();
+          Navigator.popAndPushNamed(context, "/");
+        },
+        icon: const Icon(Icons.logout, color: Colors.white,))],
         title: Text(
           title,
           style: const TextStyle(color: Colors.white),
