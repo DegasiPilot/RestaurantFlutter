@@ -26,21 +26,21 @@ class UsersCollection {
   Future<void> editUserCollection(
     String name,
   ) async {
-    final String user = FirebaseAuth.instance.currentUser!.uid.toString();
+    final String uid = FirebaseAuth.instance.currentUser!.uid;
     try {
-      await _firebaseFirestore.collection('users').doc(user).update({
+      await _firebaseFirestore.collection('users').doc(uid).update({
         'name': name,
       });
     } catch (e) {
       return;
     }
+  }
     
-    Future<void> deleteUserCollection(dynamic docs) async {
+    Future<void> deleteUserCollection(String uid) async {
       try {
-        await _firebaseFirestore.collection('users').doc(docs.id).delete();
+        await _firebaseFirestore.collection('users').doc(uid).delete();
       } catch (e) {
         return;
       }
     }
-  }
 }

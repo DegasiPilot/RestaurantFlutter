@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/database/auth/service.dart';
-import 'package:flutter_application_1/database/auth/users_collection.dart';
+import 'package:flutter_application_1/database/users_collection.dart';
 import 'package:toast/toast.dart';
 
 class RegistrationPage extends StatefulWidget {

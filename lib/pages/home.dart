@@ -3,7 +3,6 @@ import 'package:flutter_application_1/database/auth/service.dart';
 import 'package:flutter_application_1/pages/bottom_pages/menu.dart';
 import 'package:flutter_application_1/pages/bottom_pages/order.dart';
 import 'package:flutter_application_1/pages/bottom_pages/profile.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
