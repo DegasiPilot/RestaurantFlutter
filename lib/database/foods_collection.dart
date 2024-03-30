@@ -40,9 +40,9 @@ class FoodsCollection {
     }
   }
 
-  Future<void> deleteFoodsCollection(String uid) async {
+  Future<void> deleteFoodsCollection(dynamic doc) async {
       try {
-        await _firebaseFirestore.collection('foods').doc(uid).delete();
+        await _firebaseFirestore.collection('foods').doc(doc.id).delete();
       } catch (e) {
         return;
       }
