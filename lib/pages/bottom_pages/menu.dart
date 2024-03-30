@@ -7,19 +7,20 @@ class MenuPage extends StatelessWidget {
   Widget cardFood(BuildContext context, dynamic doc) {
     return Card(
       child: ListTile(
-        title: const Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Блюдо'),
+            Text(doc['name']),
           ],
         ),
-        subtitle: const Column(
+        subtitle: Column(
           children: [
-            Text('Описание'),
-            Text('200 грамм'),
+            Text(doc['composition'].toString(), textAlign: TextAlign.center,),
+            Text(doc['weight'].toString() + 'грамм'),
+            Text(doc['price'].toString() + 'руб.'),
           ],
         ),
-        leading: Image.asset('images/logo.png'),
+        leading: Image.network(doc['image']),
         trailing: ElevatedButton(
             onPressed: () {}, child: const Icon(Icons.add_shopping_cart)),
       ),

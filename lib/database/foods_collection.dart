@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FoodsCollection {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   Future<void> addFoodsCollection(
+    String image,
     String name,
     int price,
     int weight,
@@ -10,6 +11,7 @@ class FoodsCollection {
   ) async {
     try {
       await _firebaseFirestore.collection('foods').add({
+        'image' : image,
         'name' : name,
         'price' : price,
         'weight' : weight,
@@ -21,14 +23,16 @@ class FoodsCollection {
   }
 
   Future<void> editFoodsCollection(
-    String uid,
+    dynamic doc,
+    String image,
     String name,
     int price,
     int weight,
     List<String> composition,
   ) async {
     try{
-      await _firebaseFirestore.collection('foods').doc(uid).update({
+      await _firebaseFirestore.collection('foods').doc(doc.id).update({
+        'image': image,
         'name': name,
         'price' : price,
         'weight' : weight,
