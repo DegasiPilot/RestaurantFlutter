@@ -13,7 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController searchController = new TextEditingController();
   String title = "Меню";
   int index = 0;
   final pages = [const MenuPage(), const OrderPage(), const ProfilePage()];
@@ -52,24 +51,8 @@ class _HomePageState extends State<HomePage> {
         style: const TextStyle(color: Colors.white),
       ),
     );
-    AppBar searchBar = AppBar(
-      leading: const Icon(Icons.search, color: Colors.white,),
-      title : TextField(controller: searchController,),
-      actions: [
-        IconButton(onPressed: (){
-          setState(() {
-            isSearch = false;
-          });
-        }, 
-        icon: const Icon(
-          Icons.cancel,
-          color: Colors.white,
-        )
-        ),
-      ],
-    );
     return Scaffold(
-      appBar: isSearch ? searchBar : appBar,
+      appBar: appBar,
       body: pages.elementAt(index),
       bottomNavigationBar: BottomNavigationBar(
         items: const [

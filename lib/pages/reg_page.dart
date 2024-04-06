@@ -233,6 +233,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         if (usersVar != null) {
                           await users.addUserCollection(
                               usersVar.id!,
+                              "",
                               emailController.text,
                               phoneController.text,
                               nameController.text,

@@ -5,6 +5,7 @@ class UsersCollection {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   Future<void> addUserCollection(
     String id,
+    String image,
     String email,
     String phone,
     String name,
@@ -13,6 +14,7 @@ class UsersCollection {
     try {
       await _firebaseFirestore.collection('users').doc(id).set({
         'uid': id,
+        'image' : image,
         'email': email,
         'phone': phone,
         'name': name,
@@ -25,10 +27,12 @@ class UsersCollection {
 
   Future<void> editUserCollection(
     String name,
+    String image,
   ) async {
     final String uid = FirebaseAuth.instance.currentUser!.uid;
     try {
       await _firebaseFirestore.collection('users').doc(uid).update({
+        'image': image,
         'name': name,
       });
     } catch (e) {
