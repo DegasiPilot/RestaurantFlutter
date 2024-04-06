@@ -13,7 +13,9 @@ class OrderPage extends StatefulWidget {
 class OrderPageState extends State<OrderPage> {
   int itemQnt = 1;
 
-  Widget orderCard(BuildContext context, dynamic doc) {
+  Future<Widget> orderCard(BuildContext context, dynamic doc) async {
+    doc = await (doc['foods'][0] as DocumentReference<Map<String,dynamic>>).get();
+
     return Card(
       child: ListTile(
         title: Row(
@@ -24,8 +26,8 @@ class OrderPageState extends State<OrderPage> {
         ),
         subtitle: Column(
           children: [
-            Text(doc['composition']),
-            Text(doc['weight']),
+            Text(doc['composition'].toString()),
+            Text(doc['weight'].toString()),
             Text('${doc['price']}руб.'),
           ],
         ),
@@ -90,7 +92,16 @@ class OrderPageState extends State<OrderPage> {
             return ListView.builder(
               itemCount: orders.length,
               itemBuilder: (context, index) {
-                return orderCard(context, orders[index]);
+                FutureBuilder(future: orderCard(context, orders[index]),
+                builder: (context, snapshot) {
+                  if(snapshot.hasData){
+                    return snapshot.requireData;
+                  }
+                  else{
+                    return const Text("Загрузка...");
+                  }
+                },
+                );
               },
             );
           }

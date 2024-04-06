@@ -29,17 +29,16 @@ class ProfilePageState extends State<ProfilePage> {
   GetUserById() async {
     DocumentSnapshot documentSnapshot =
         await FirebaseFirestore.instance.collection('users').doc(userId).get();
-    setState(() {
-      userDoc = documentSnapshot;
-    });
+    userDoc = documentSnapshot;
+    return userDoc;
   }
 
   SelectImageGallery() async {
     final returnedimage = await ImagePicker().pickImage(source: ImageSource.gallery);
-    setState(() {
+    if(returnedimage != null){
       _fileName = returnedimage;
-      _selectedFile = File(returnedimage!.path);
-    });
+      _selectedFile = File(returnedimage.path);
+    }
   }
 
   UpdateInfo() async {
@@ -56,12 +55,14 @@ class ProfilePageState extends State<ProfilePage> {
 
   @override
   void initState() {
-    GetUserById();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(future: GetUserById(), builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot)
+    {
+    if(snapshot.hasData){
     return Scaffold(
       body: Center(
         child: Column(
@@ -71,20 +72,19 @@ class ProfilePageState extends State<ProfilePage> {
               width: MediaQuery.of(context).size.width * 0.4,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: userDoc['image'] == ""
+                child: snapshot.requireData['image'] == ""
                     ? IconButton(
                         onPressed: () async {
-                          SelectImageGallery();
-                          await imageStorage.pushImage(_fileName!);
+                          await SelectImageGallery();
                           showDialog(
                             context: context,
                             builder: (context) => const Center(
                               child: CircularProgressIndicator(),
                             ),
                           );
-                          Future.delayed(const Duration(seconds: 4));
-
+                          await imageStorage.pushImage(_fileName!);
                           Navigator.pop(context);
+                          setState(() {});
                         },
                         icon: const Icon(
                           Icons.add,
@@ -112,6 +112,21 @@ class ProfilePageState extends State<ProfilePage> {
             ],
         ),
       ),
+    );
+    }
+    else{
+      return const Scaffold(
+        body: Center(child:
+        Column(
+          children: [
+            Text("Получение данных пользователя..."),
+            CircularProgressIndicator(),
+          ],
+        ),
+         ),
+      );
+    }
+    }
     );
   }
 }

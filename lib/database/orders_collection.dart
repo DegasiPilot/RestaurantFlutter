@@ -5,12 +5,12 @@ class OrdersCollection {
 
   Future<void> addOrdersCollection(
     String userId,
-    Map<String, int> foodsId,
+    List<DocumentReference> foods,
   ) async {
     try {
       await _firebaseFirestore.collection('orders').add({
         'userId': userId,
-        'foodsId': foodsId,
+        'foods': foods,
       });
     } catch (e) {
       return;
@@ -20,12 +20,12 @@ class OrdersCollection {
   Future<void> editOrdersCollection(
     dynamic doc,
     String userId,
-    Map<String, int> foodsId,
+    List<DocumentReference> foods,
   ) async {
     try {
       await _firebaseFirestore.collection('orders').doc(doc.id).update({
         'userId': userId,
-        'foodsId': foodsId,
+        'foodsId': foods,
       });
     } catch (e) {
       return;
