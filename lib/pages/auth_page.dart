@@ -71,8 +71,8 @@ class _AuthpageState extends State<Authpage> {
                   obscureText: !visibility,
                   cursorColor: Colors.white,
                   decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Password',
+                    labelText: 'Пароль',
+                    hintText: 'Пароль',
                     hintStyle: const TextStyle(
                       color: Colors.white54,
                     ),
