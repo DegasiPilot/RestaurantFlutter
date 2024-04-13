@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/database/orders_collection.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -10,6 +12,8 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   TextEditingController searchController = TextEditingController();
+  final OrdersCollection orders = OrdersCollection();
+  final uid = FirebaseAuth.instance.currentUser!.uid;
   Widget cardFood(BuildContext context, dynamic doc) {
     return Card(
       child: ListTile(
@@ -25,13 +29,16 @@ class _MenuPageState extends State<MenuPage> {
               doc['composition'].toString(),
               textAlign: TextAlign.center,
             ),
-            Text(doc['weight'].toString() + 'грамм'),
-            Text(doc['price'].toString() + 'руб.'),
+            Text('${doc['weight']}грамм'),
+            Text('${doc['price']}руб.'),
           ],
         ),
         leading: Image.network(doc['image']),
         trailing: ElevatedButton(
-            onPressed: () {}, child: const Icon(Icons.add_shopping_cart)),
+            onPressed: () {
+              orders.addOrdersCollection(doc['image'], doc['name'], doc['price'], doc['weight'], doc['composition'], uid);
+            },
+            child: const Icon(Icons.add_shopping_cart)),
       ),
     );
   }

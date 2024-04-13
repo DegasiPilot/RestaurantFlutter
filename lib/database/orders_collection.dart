@@ -4,13 +4,21 @@ class OrdersCollection {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   Future<void> addOrdersCollection(
-    String userId,
-    List<DocumentReference> foods,
+    String image,
+    String name,
+    int price,
+    int weight,
+    List<String> composition,
+    String uid,
   ) async {
     try {
       await _firebaseFirestore.collection('orders').add({
-        'userId': userId,
-        'foods': foods,
+        'image' : image,
+        'name' : name,
+        'price' : price,
+        'weight' : weight,
+        'composition' : composition,
+        'uid' : uid,
       });
     } catch (e) {
       return;
@@ -19,13 +27,21 @@ class OrdersCollection {
 
   Future<void> editOrdersCollection(
     dynamic doc,
-    String userId,
-    List<DocumentReference> foods,
+    String image,
+    String name,
+    int price,
+    int weight,
+    List<String> composition,
+    String uid,
   ) async {
-    try {
+    try{
       await _firebaseFirestore.collection('orders').doc(doc.id).update({
-        'userId': userId,
-        'foodsId': foods,
+        'image': image,
+        'name': name,
+        'price' : price,
+        'weight' : weight,
+        'composition' : composition,
+        'uid' : uid,
       });
     } catch (e) {
       return;

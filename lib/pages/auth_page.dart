@@ -44,7 +44,7 @@ class _AuthpageState extends State<Authpage> {
                       color: Colors.white54,
                     ),
                     labelStyle: const TextStyle(
-                      color: Colors.white,
+                      color: Colors.blue,
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -126,7 +126,7 @@ class _AuthpageState extends State<Authpage> {
                           });
                       var user = await authService.signIn(email_contl.text, password_contl.text);
                       if(user != null){
-                        Toast.show("Успешно!");
+                        Toast.show("Успегно!");
                         Navigator.popAndPushNamed(context, '/');
                       }
                       else{

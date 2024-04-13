@@ -71,7 +71,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 controller: emailController,
                 cursorColor: Colors.white,
                 decoration: InputDecoration(
-                  labelText: 'Email',
+                  labelText: '',
                   hintText: 'Email',
                   hintStyle:const TextStyle(
                     color: Colors.white54,

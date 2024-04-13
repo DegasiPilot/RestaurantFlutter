@@ -1,6 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_application_1/database/auth/service.dart';
 import 'package:provider/provider.dart';
 
 class OrderPage extends StatefulWidget {
@@ -12,10 +12,9 @@ class OrderPage extends StatefulWidget {
 
 class OrderPageState extends State<OrderPage> {
   int itemQnt = 1;
+  final String uid = FirebaseAuth.instance.currentUser!.uid;
 
   Future<Widget> orderCard(BuildContext context, dynamic doc) async {
-    doc = await (doc['foods'][0] as DocumentReference<Map<String,dynamic>>).get();
-
     return Card(
       child: ListTile(
         title: Row(
@@ -86,9 +85,7 @@ class OrderPageState extends State<OrderPage> {
               child: CircularProgressIndicator(),
             );
           } else {
-            var orders = snapshot.data!.docs
-                .where((food) => true)
-                .toList();
+            var orders = snapshot.data!.docs.where((order) => order['uid'] == uid).toList();
             return ListView.builder(
               itemCount: orders.length,
               itemBuilder: (context, index) {

@@ -44,7 +44,7 @@ class ProfilePageState extends State<ProfilePage> {
   UpdateInfo() async {
     if(_fileName != null || nameController.text != ""){
       String userName = nameController.text != "" ? nameController.text : userDoc['name'];
-      String imagePath = imageStorage.urlImage != null ? imageStorage.urlImage : userDoc['image'];
+      String imagePath = userDoc['image'];
       users.editUserCollection(userName, imagePath);
       setState(() {
         userDoc = GetUserById();
@@ -75,14 +75,15 @@ class ProfilePageState extends State<ProfilePage> {
                 child: snapshot.requireData['image'] == ""
                     ? IconButton(
                         onPressed: () async {
-                          await SelectImageGallery();
                           showDialog(
                             context: context,
                             builder: (context) => const Center(
                               child: CircularProgressIndicator(),
                             ),
                           );
+                          await SelectImageGallery();
                           await imageStorage.pushImage(_fileName!);
+                          users.editUserCollection(userDoc['name'], imageStorage.urlImage!);
                           Navigator.pop(context);
                           setState(() {});
                         },
@@ -98,13 +99,17 @@ class ProfilePageState extends State<ProfilePage> {
             ),
               Text("Никнейм ${userDoc['name']}", style: const TextStyle(color: Colors.white), ),
               Text("Email ${userDoc['email']}", style: const TextStyle(color: Colors.white),),
-              TextField(              
-                controller: nameController,  
-                decoration: const InputDecoration(
-                  labelText: 'Новый никнейм',
-                  hintText: 'никнейм',
-                  hintStyle:TextStyle(
-                    color: Colors.white54,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextField(              
+                  controller: nameController,  
+                  decoration: const InputDecoration(
+                    labelText: 'Новый никнейм',
+                    hintText: 'никнейм',
+                    hintStyle:TextStyle(
+                      color: Colors.white54,
+                    ),
                   ),
                 ),
               ),
@@ -119,7 +124,7 @@ class ProfilePageState extends State<ProfilePage> {
         body: Center(child:
         Column(
           children: [
-            Text("Получение данных пользователя..."),
+            Text("Получение даных пользователя..."),
             CircularProgressIndicator(),
           ],
         ),
