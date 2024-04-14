@@ -35,8 +35,17 @@ class _MenuPageState extends State<MenuPage> {
         ),
         leading: Image.network(doc['image']),
         trailing: ElevatedButton(
-            onPressed: () {
-              orders.addOrdersCollection(doc['image'], doc['name'], doc['price'], doc['weight'], doc['composition'], uid);
+            onPressed: () async {
+               await FirebaseFirestore.instance.collection('orders').get().then((value) async {
+                  if(value.docs.any((el) => el['name'] == doc['name']))
+                  {
+                    dynamic editingDoc = value.docs.firstWhere((element) => element['name'] == doc['name']);
+                    orders.editOrdersCollection(editingDoc, editingDoc['count'] + 1);
+                  }
+                  else{
+                    await orders.addOrdersCollection(doc['image'], doc['name'], doc['price'], doc['weight'], doc['composition'],1, uid);
+                  }
+              });
             },
             child: const Icon(Icons.add_shopping_cart)),
       ),

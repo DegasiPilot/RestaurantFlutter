@@ -6,9 +6,10 @@ class OrdersCollection {
   Future<void> addOrdersCollection(
     String image,
     String name,
-    int price,
-    int weight,
-    List<String> composition,
+    String price,
+    String weight,
+    List<dynamic> composition,
+    int count,
     String uid,
   ) async {
     try {
@@ -18,6 +19,7 @@ class OrdersCollection {
         'price' : price,
         'weight' : weight,
         'composition' : composition,
+        'count' : count,
         'uid' : uid,
       });
     } catch (e) {
@@ -27,21 +29,11 @@ class OrdersCollection {
 
   Future<void> editOrdersCollection(
     dynamic doc,
-    String image,
-    String name,
-    int price,
-    int weight,
-    List<String> composition,
-    String uid,
+    int count,
   ) async {
     try{
       await _firebaseFirestore.collection('orders').doc(doc.id).update({
-        'image': image,
-        'name': name,
-        'price' : price,
-        'weight' : weight,
-        'composition' : composition,
-        'uid' : uid,
+        'count' : count,
       });
     } catch (e) {
       return;

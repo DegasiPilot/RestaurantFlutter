@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_application_1/database/orders_collection.dart';
 import 'package:provider/provider.dart';
 
 class OrderPage extends StatefulWidget {
@@ -11,10 +12,10 @@ class OrderPage extends StatefulWidget {
 }
 
 class OrderPageState extends State<OrderPage> {
-  int itemQnt = 1;
   final String uid = FirebaseAuth.instance.currentUser!.uid;
+  final OrdersCollection orders = OrdersCollection();
 
-  Future<Widget> orderCard(BuildContext context, dynamic doc) async {
+  Widget orderCard(BuildContext context, dynamic doc) {
     return Card(
       child: ListTile(
         title: Row(
@@ -24,23 +25,17 @@ class OrderPageState extends State<OrderPage> {
           ],
         ),
         subtitle: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(doc['composition'].toString()),
             Text(doc['weight'].toString()),
             Text('${doc['price']}руб.'),
-          ],
-        ),
-        leading: Image.network(doc['image']),
-        trailing: SizedBox(
-          width: 150,
-          height: 200,
-          child: Row(
+            Row(
             children: <Widget>[
               ElevatedButton(
                   onPressed: () => setState(() {
-                        if (itemQnt == 1) {
-                        } else {
-                          itemQnt--;
+                        if (doc['count'] > 1) {
+                          orders.editOrdersCollection(doc, doc['count'] - 1);
                         }
                       }),
                   child: const Text(
@@ -52,7 +47,7 @@ class OrderPageState extends State<OrderPage> {
                 height: 15,
               ),
               Text(
-                itemQnt.toString(),
+                doc['count'].toString(),
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(
@@ -61,7 +56,7 @@ class OrderPageState extends State<OrderPage> {
               ),
               ElevatedButton(
                   onPressed: () => setState(() {
-                        itemQnt++;
+                        orders.editOrdersCollection(doc, doc['count'] + 1);
                       }),
                   child: const Text(
                     '+',
@@ -69,7 +64,9 @@ class OrderPageState extends State<OrderPage> {
                   )),
             ],
           ),
+          ],
         ),
+        leading: Image.network(doc['image'])
       ),
     );
   }
@@ -89,16 +86,7 @@ class OrderPageState extends State<OrderPage> {
             return ListView.builder(
               itemCount: orders.length,
               itemBuilder: (context, index) {
-                FutureBuilder(future: orderCard(context, orders[index]),
-                builder: (context, snapshot) {
-                  if(snapshot.hasData){
-                    return snapshot.requireData;
-                  }
-                  else{
-                    return const Text("Загрузка...");
-                  }
-                },
-                );
+                return orderCard(context, orders[index]);
               },
             );
           }
